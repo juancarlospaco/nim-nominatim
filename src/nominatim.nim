@@ -22,7 +22,7 @@ proc lookup*(this: Nominatim | AsyncNominatim, osm_ids: string,
              addressdetails = true, extratags = true, namedetails = true, use_json = true,
              email = "", accept_language = "EN", api_url = api_url): Future[string] {.multisync.} =
   ## Take a Nominatim lookup and return results from OpenStreetMap, Asynchronously or Synchronously.
-  assert osm_ids.split(',').len < 51, "Max 50 specific OSM nodes/way/relations IDs."
+  assert osm_ids.split(',').len < 50, "Max 50 specific OSM nodes/way/relations IDs."
   let
     accept_lang = if accept_language != "": fmt"&accept-language={accept_language}" else: ""
     addresses   = if addressdetails: "&addressdetails=1" else: ""
