@@ -39,4 +39,4 @@
 
 `proc reverse*(this: Nominatim | AsyncNominatim, lat: float, lon: float, osm_ids = "", osm_type = ' ', zoom: range[-1..18] = -1, addressdetails = true, extratags = true, namedetails = true, use_json = true, email = "", accept_language = "EN", api_url = api_url)`
 
-- TBD!, WIP!.
+- **TBD!, WIP!.**
