@@ -17,12 +17,16 @@
 
 # API
 
+### Search
+
 `search*(this: Nominatim | AsyncNominatim, query: string, use_json = true, api_url = api_url)`
 
 - `this` is `Nominatim(timeout=int8)` for Synchronous code or `AsyncNominatim(timeout=int8)` for Asynchronous code.
 - `query` is an Nominatim query, `string` type, required.
 - `api_url` is an Nominatim HTTP API URL, `string` type, optional.
 
+
+### Lookup
 
 `lookup*(this: Nominatim | AsyncNominatim, osm_ids: string, addressdetails = true, extratags = true, namedetails = true, use_json = true, email = "", accept_language = "EN", api_url = api_url)`
 
@@ -36,6 +40,8 @@
 - `accept_language` Set output spoken language, `string` type, defaults to `"EN"`, optional.
 - `api_url` is an Nominatim HTTP API URL, `string` type, optional.
 
+
+### Reverse
 
 `proc reverse*(this: Nominatim | AsyncNominatim, lat: float, lon: float, osm_ids = "", osm_type = ' ', zoom: range[-1..18] = -1, addressdetails = true, extratags = true, namedetails = true, use_json = true, email = "", accept_language = "EN", api_url = api_url)`
 
