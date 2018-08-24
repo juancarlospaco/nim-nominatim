@@ -1,2 +1,3 @@
 # nim-nominatim
-OpenStreetMap Nominatim API Lib for Nim
+
+- [OpenStreetMap](https://openstreetmap.org) [Nominatim](https://nominatim.openstreetmap.org) API Lib for [Nim](https://nim-lang.org).
