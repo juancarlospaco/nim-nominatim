@@ -10,6 +10,14 @@
 - `nimble install nominatim`
 
 
+# Use
+
+```nim
+import nominatim
+echo Nominatim(timeout: 5).lookup(osm_ids="R146656,W104393803,N240109189")
+```
+
+
 # Requisites
 
 - None.
