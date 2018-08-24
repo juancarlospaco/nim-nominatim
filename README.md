@@ -51,6 +51,4 @@ echo Nominatim(timeout: 5).lookup(osm_ids="R146656,W104393803,N240109189")
 
 ### Reverse
 
-`proc reverse*(this: Nominatim | AsyncNominatim, lat: float, lon: float, osm_ids = "", osm_type = ' ', zoom: range[-1..18] = -1, addressdetails = true, extratags = true, namedetails = true, use_json = true, email = "", accept_language = "EN", api_url = api_url)`
-
 - **TBD!, WIP!.**
