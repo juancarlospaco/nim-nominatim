@@ -1,6 +1,6 @@
 # nim-nominatim
 
-- [OpenStreetMap](https://openstreetmap.org) [Nominatim](https://nominatim.openstreetmap.org) API Lib for [Nim](https://nim-lang.org), Async & Sync.
+- [OpenStreetMap](https://openstreetmap.org) [Nominatim](https://nominatim.openstreetmap.org) API Lib for [Nim](https://nim-lang.org), Async & Sync, Pull Requests welcome.
 
 ![OpenStreetMap](https://raw.githubusercontent.com/juancarlospaco/nim-overpass/master/osm.jpg)
 
