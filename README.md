@@ -33,7 +33,6 @@ echo Nominatim(timeout: 5).lookup(osm_ids="R146656,W104393803,N240109189")
 - `query` is an Nominatim query, `string` type, required.
 - `api_url` is an Nominatim HTTP API URL, `string` type, optional.
 
-
 ### Lookup
 
 `lookup*(this: Nominatim | AsyncNominatim, osm_ids: string, addressdetails = true, extratags = true, namedetails = true, use_json = true, email = "", accept_language = "EN", api_url = api_url)`
@@ -47,7 +46,6 @@ echo Nominatim(timeout: 5).lookup(osm_ids="R146656,W104393803,N240109189")
 - `email` Set to your email address (for massive heavy use of the API), `string` type, defaults to `""`, optional.
 - `accept_language` Set output spoken language, `string` type, defaults to `"EN"`, optional.
 - `api_url` is an Nominatim HTTP API URL, `string` type, optional.
-
 
 ### Reverse
 
