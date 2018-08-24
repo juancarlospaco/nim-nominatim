@@ -1,4 +1,4 @@
-import asyncdispatch, json, httpclient, strformat, strutils, times, math
+import asyncdispatch, json, httpclient, strformat, strutils
 
 const api_url* = "https://nominatim.openstreetmap.org" ## OpenStreetMap Nominatim API (SSL).
 
@@ -24,19 +24,18 @@ proc lookup*(this: Nominatim | AsyncNominatim, osm_ids: string,
   ## Take a Nominatim lookup and return results from OpenStreetMap, Asynchronously or Synchronously.
   assert osm_ids.split(',').len < 50, "Max 50 specific OSM nodes/way/relations IDs."
   let
-    accept_lang = if accept_language != "": fmt"&accept-language={accept_language}" else: ""
-    addresses   = if addressdetails: "&addressdetails=1" else: ""
-    mail        = if email != "": fmt"&email={email}" else: ""
-    xtratags    = if extratags: "&extratags=1" else: ""
-    names       = if namedetails: "&namedetails=1" else: ""
-    formatos    = if use_json: "&format=json" else: ""
-    all_args    = accept_lang & addresses & mail & xtratags & names & formatos
-    query_url   = api_url & fmt"/lookup&osm_ids={osm_ids}" & all_args
+    a = if accept_language != "": fmt"&accept-language={accept_language}" else: ""
+    b = if addressdetails: "&addressdetails=1" else: ""
+    c = if email != "": fmt"&email={email}" else: ""
+    d = if extratags: "&extratags=1" else: ""
+    e = if namedetails: "&namedetails=1" else: ""
+    f = if use_json: "&format=json" else: ""
+    all_args = a & b & c & d & e & f
+    query_url = api_url & fmt"/lookup&osm_ids={osm_ids}" & all_args
   let response =
       when this is AsyncNominatim: await newAsyncHttpClient().get(query_url) # Async.
       else:        newHttpClient(timeout=this.timeout * 1000).get(query_url) # Sync.
   result = await response.body
-
 
 proc reverse*(this: Nominatim | AsyncNominatim, lat: float, lon: float,
               osm_ids = "", osm_type = ' ', zoom: range[-1..18] = -1,
@@ -62,18 +61,14 @@ proc reverse*(this: Nominatim | AsyncNominatim, lat: float, lon: float,
       else:        newHttpClient(timeout=this.timeout * 1000).get(query_url) # Sync.
   result = await response.body
 
-
 when is_main_module:
   let
     openstreetmap_client = Nominatim(timeout: 5)
-    example_search = "?q=135+pilkington+avenue,+birmingham&format=xml&polygon=1&addressdetails=1"
-    example_lookup = "R146656,W104393803,N240109189"
-
+    example_search = "?q=135+pilkington+avenue,+birmingham&format=xml&polygon=1&addressdetails=1" # Just a string with URLEncoded values.
+    example_lookup = "R146656,W104393803,N240109189"  # Just a string with comma separated values.
   # Searching OpenStreetMap Example.
   echo openstreetmap_client.search(query=example_search)
-
   # Lookup on OpenStreetMap Example.
   echo openstreetmap_client.lookup(osm_ids=example_lookup)
-
   # Reverse query on OpenStreetMap Example.
   echo openstreetmap_client.reverse(lat = -34.44076, lon = -58.70521)
