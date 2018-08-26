@@ -25,6 +25,11 @@ echo Nominatim(timeout: 5).lookup(osm_ids="R146656,W104393803,N240109189")
 
 # API
 
+- The `timeout` argument is on Seconds.
+- OpenStreetMap API limits the length of all key and value strings to a maximum of 255 characters.
+- For Proxy support define a `Nominatim.proxy` or `AsyncNominatim.proxy` of `Proxy` type.
+- No OS-specific code, so it should work on Linux, Windows and Mac. Not JS.
+
 ### Search
 
 `search*(this: Nominatim | AsyncNominatim, query: string, use_json = true, api_url = api_url)`

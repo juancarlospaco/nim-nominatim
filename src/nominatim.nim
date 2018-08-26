@@ -1,10 +1,11 @@
-import asyncdispatch, json, httpclient, strformat, strutils
+import asyncdispatch, json, httpclient, strformat, strutils, httpcore
 
 const api_url* = "https://nominatim.openstreetmap.org" ## OpenStreetMap Nominatim API (SSL).
 
 type
   NominatimBase*[HttpType] = object
     timeout*: int8
+    proxy*: Proxy
   Nominatim* = NominatimBase[HttpClient]           ##  Sync OpenStreetMap Nominatim Client.
   AsyncNominatim* = NominatimBase[AsyncHttpClient] ## Async OpenStreetMap Nominatim Client.
 
@@ -14,8 +15,10 @@ proc search*(this: Nominatim | AsyncNominatim, query: string, use_json = true, a
     formatos = if use_json: "&format=json" else: ""
     query_url = api_url & "/search" & query.strip & formatos
     response =
-      when this is AsyncNominatim: await newAsyncHttpClient().get(query_url) # Async.
-      else:        newHttpClient(timeout=this.timeout * 1000).get(query_url) # Sync.
+      when this is AsyncNominatim:
+        await newAsyncHttpClient(proxy = when declared(this.proxy): this.proxy else: nil).get(query_url) # Async.
+      else:
+        newHttpClient(timeout=this.timeout * 1000, proxy = when declared(this.proxy): this.proxy else: nil).get(query_url) # Sync.
   result = await response.body
 
 proc lookup*(this: Nominatim | AsyncNominatim, osm_ids: string,
@@ -33,8 +36,10 @@ proc lookup*(this: Nominatim | AsyncNominatim, osm_ids: string,
     all_args = a & b & c & d & e & f
     query_url = api_url & fmt"/lookup&osm_ids={osm_ids}" & all_args
   let response =
-      when this is AsyncNominatim: await newAsyncHttpClient().get(query_url) # Async.
-      else:        newHttpClient(timeout=this.timeout * 1000).get(query_url) # Sync.
+      when this is AsyncNominatim:
+        await newAsyncHttpClient(proxy = when declared(this.proxy): this.proxy else: nil).get(query_url) # Async.
+      else:
+        newHttpClient(timeout=this.timeout * 1000, proxy = when declared(this.proxy): this.proxy else: nil).get(query_url) # Sync.
   result = await response.body
 
 proc reverse*(this: Nominatim | AsyncNominatim, lat: float, lon: float,
@@ -57,8 +62,10 @@ proc reverse*(this: Nominatim | AsyncNominatim, lat: float, lon: float,
     query_url = api_url & fmt"/reverse?" & all_args
   echo query_url
   let response =
-      when this is AsyncNominatim: await newAsyncHttpClient().get(query_url) # Async.
-      else:        newHttpClient(timeout=this.timeout * 1000).get(query_url) # Sync.
+      when this is AsyncNominatim:
+        await newAsyncHttpClient(proxy = when declared(this.proxy): this.proxy else: nil).get(query_url) # Async.
+      else:
+        newHttpClient(timeout=this.timeout * 1000, proxy = when declared(this.proxy): this.proxy else: nil).get(query_url) # Sync.
   result = await response.body
 
 when is_main_module:
