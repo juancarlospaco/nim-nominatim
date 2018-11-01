@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.1.2"
+version       = "0.1.5"
 author        = "juancarlospaco"
 description   = "OpenStreetMap Nominatim API Lib and CLI Client for Nim"
 license       = "MIT"
