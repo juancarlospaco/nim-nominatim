@@ -16,7 +16,24 @@
 
 ```nim
 import nominatim
-echo Nominatim(timeout: 5).lookup(osm_ids="R146656,W104393803,N240109189")
+
+# Sync Client.
+let openstreetmap_client = Nominatim(timeout: 5)
+# Searching OpenStreetMap Example.
+echo openstreetmap_client.search(query="135+pilkington+avenue,+birmingham").pretty
+# Lookup on OpenStreetMap Example.
+echo openstreetmap_client.lookup(osm_ids="R146656,W104393803,N240109189").pretty
+# Reverse query on OpenStreetMap Example.
+echo openstreetmap_client.reverse(lat = -34.44076, lon = -58.70521).pretty
+
+## Async client.
+proc async_nominatim() {.async.} =
+  let
+    async_nominatim_client = AsyncNominatim(timeout: 9)
+    async_response = await async_nominatim_client.search(query="135+pilkington+avenue,+birmingham")
+  echo async_response.pretty
+
+wait_for async_nominatim()
 ```
 
 **Search as a command line app:**
