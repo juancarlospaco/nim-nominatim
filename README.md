@@ -12,9 +12,29 @@
 
 # Use
 
+**From Nim code:**
+
 ```nim
 import nominatim
 echo Nominatim(timeout: 5).lookup(osm_ids="R146656,W104393803,N240109189")
+```
+
+**Search as a command line app:**
+
+```bash
+$ ./nominatim --color --lower --timeout=9 --search "135 pilkington avenue, birmingham"
+```
+
+**Lookup as a command line app:**
+
+```bash
+$ ./nominatim --color --lower --lookup "R146656,W104393803,N240109189"
+```
+
+**Reverse as a command line app:**
+
+```bash
+$ ./nominatim --color --lower --lon=-58.70521 --lat=-34.44076  --reverse "reverse"
 ```
 
 
