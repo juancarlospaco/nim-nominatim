@@ -11,6 +11,7 @@ type
 
 proc search*(this: Nominatim | AsyncNominatim, query: string, api_url = api_url): Future[JsonNode] {.multisync.} =
   ## Take a Nominatim query and return results from OpenStreetMap, Asynchronously or Synchronously, JSON or XML.
+  assert query.len < 255, "OpenStreetMap API limits the length of all key and value strings to a maximum of 255 characters."
   let
     query_url = api_url & "/search?format=json&q=" & query.strip
     response =
@@ -25,6 +26,7 @@ proc lookup*(this: Nominatim | AsyncNominatim, osm_ids: string,
              email = "", accept_language = "EN", api_url = api_url): Future[JsonNode] {.multisync.} =
   ## Take a Nominatim lookup and return results from OpenStreetMap, Asynchronously or Synchronously.
   assert osm_ids.split(',').len < 50, "Max 50 specific OSM nodes/way/relations IDs."
+  assert osm_ids.len < 255, "OpenStreetMap API limits the length of all key and value strings to a maximum of 255 characters."
   let
     a = if accept_language != "": fmt"&accept-language={accept_language}" else: ""
     b = if addressdetails: "&addressdetails=1" else: ""
