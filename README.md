@@ -46,13 +46,14 @@ $ ./nominatim --color --lower --lon=-58.70521 --lat=-34.44076  --reverse "revers
 # API
 
 - The `timeout` argument is on Seconds.
+- All the responses are JSON, `JsonNode` type.
 - OpenStreetMap API limits the length of all key and value strings to a maximum of 255 characters.
 - For Proxy support define a `Nominatim.proxy` or `AsyncNominatim.proxy` of `Proxy` type.
 - No OS-specific code, so it should work on Linux, Windows and Mac. Not JS.
 
 ### Search
 
-`search*(this: Nominatim | AsyncNominatim, query: string, use_json = true, api_url = api_url)`
+`search*(this: Nominatim | AsyncNominatim, query: string, api_url = api_url)`
 
 - `this` is `Nominatim(timeout=int8)` for Synchronous code or `AsyncNominatim(timeout=int8)` for Asynchronous code.
 - `query` is an Nominatim query, `string` type, required.
@@ -60,28 +61,26 @@ $ ./nominatim --color --lower --lon=-58.70521 --lat=-34.44076  --reverse "revers
 
 ### Lookup
 
-`lookup*(this: Nominatim | AsyncNominatim, osm_ids: string, addressdetails = true, extratags = true, namedetails = true, use_json = true, email = "", accept_language = "EN", api_url = api_url)`
+`lookup*(this: Nominatim | AsyncNominatim, osm_ids: string, addressdetails = true, extratags = true, namedetails = true, email = "", accept_language = "EN", api_url = api_url)`
 
 - `this` is `Nominatim(timeout=int8)` for Synchronous code or `AsyncNominatim(timeout=int8)` for Asynchronous code.
 - `osm_ids` is an Nominatim OpenStreetMap IDs, `string` type, comma separated, max 50 items, required.
 - `addressdetails` Set to `true` to show address details, `bool` type, optional, defaults to `true`.
 - `extratags` Set to `true` to show extra tags, `bool` type, optional, defaults to `true`.
 - `namedetails` Set to `true` to show name details, `bool` type, optional, defaults to `true`.
-- `use_json` Set to `true` to use json, `bool` type, optional, defaults to `true`.
 - `email` Set to your email address (for massive heavy use of the API), `string` type, defaults to `""`, optional.
 - `accept_language` Set output spoken language, `string` type, defaults to `"EN"`, optional.
 - `api_url` is an Nominatim HTTP API URL, `string` type, optional.
 
 ### Reverse
 
-`reverse*(this: Nominatim | AsyncNominatim, lat: float, lon: float, osm_ids = "", osm_type = ' ', zoom: range[-1..18] = -1, addressdetails = true, extratags = true, namedetails = true, use_json = true, email = "", accept_language = "EN", api_url = api_url)`
+`reverse*(this: Nominatim | AsyncNominatim, lat: float, lon: float, osm_ids = "", osm_type = ' ', zoom: range[-1..18] = -1, addressdetails = true, extratags = true, namedetails = true, email = "", accept_language = "EN", api_url = api_url)`
 
 - `this` is `Nominatim(timeout=int8)` for Synchronous code or `AsyncNominatim(timeout=int8)` for Asynchronous code.
 - `osm_ids` is an Nominatim OpenStreetMap IDs, `string` type, comma separated, max 50 items, required.
 - `addressdetails` Set to `true` to show address details, `bool` type, optional, defaults to `true`.
 - `extratags` Set to `true` to show extra tags, `bool` type, optional, defaults to `true`.
 - `namedetails` Set to `true` to show name details, `bool` type, optional, defaults to `true`.
-- `use_json` Set to `true` to use json, `bool` type, optional, defaults to `true`.
 - `email` Set to your email address (for massive heavy use of the API), `string` type, defaults to `""`, optional.
 - `accept_language` Set output spoken language, `string` type, defaults to `"EN"`, optional.
 - `api_url` is an Nominatim HTTP API URL, `string` type, optional.
